@@ -46,8 +46,8 @@ fun App() {
     }
 }
 
-private const val TIME_POMODORO_IN_SECONDS = 25 * 60
-private const val TIME_BREAK_IN_SECONDS = 5 * 60
+private const val TIME_POMODORO_IN_SECONDS = 5
+private const val TIME_BREAK_IN_SECONDS = 2
 
 private sealed interface TimerState {
 
@@ -71,6 +71,7 @@ private fun PomodoroApp() {
     var started by remember { mutableStateOf(false) }
     var timerState by remember { mutableStateOf<TimerState>(TimerState.Pomodoro()) }
 
+
     LaunchedEffect(Unit) {
         while (true) {
             delay(1.seconds)
@@ -79,6 +80,8 @@ private fun PomodoroApp() {
                 when (timerState) {
                     is TimerState.Break -> {
                         if (timerState.timeRemaining == 0) {
+                            playTimerEndSound()
+
                             timerState = TimerState.Pomodoro(TIME_POMODORO_IN_SECONDS)
                         } else {
                             timerState =
@@ -88,6 +91,8 @@ private fun PomodoroApp() {
 
                     is TimerState.Pomodoro -> {
                         if (timerState.timeRemaining == 0) {
+                            playTimerEndSound()
+
                             timerState = TimerState.Break(TIME_BREAK_IN_SECONDS)
                         } else {
                             timerState =
@@ -104,7 +109,7 @@ private fun PomodoroApp() {
         contentAlignment = Alignment.Center,
     ) {
         Card(
-            modifier = Modifier.fillMaxWidth(0.25f)
+            modifier = Modifier.fillMaxWidth(0.8f)
                 .fillMaxHeight(0.5f)
         ) {
             Text(
