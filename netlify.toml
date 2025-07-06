@@ -1,0 +1,8 @@
+[build]
+command = "./gradlew wasmJsBrowserDistribution"
+publish = "build/dist/wasmJs/productionExecutable"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
