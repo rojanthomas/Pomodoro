@@ -46,8 +46,8 @@ fun App() {
     }
 }
 
-private const val TIME_POMODORO_IN_SECONDS = 5
-private const val TIME_BREAK_IN_SECONDS = 2
+private const val TIME_POMODORO_IN_SECONDS = 25 * 60
+private const val TIME_BREAK_IN_SECONDS = 5 * 60
 
 private sealed interface TimerState {
 
